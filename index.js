@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const fetch = require('node-fetch');
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -9,7 +10,7 @@ const corsOptions = {
 };
 
 app.get('/', cors(corsOptions), (req, res) => {
-  res.send('Hello World!');
+  res.send('Hello World! Now lets try to import node fetch @ 2');
 })
 
 app.listen(port, () => {
