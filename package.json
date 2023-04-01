@@ -1,0 +1,23 @@
+{
+  "name": "ccjs-backend",
+  "version": "1.0.0",
+  "description": "Express server to send data to my ccjs-app",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cwalsh888/ccjs-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Cwalsh888/ccjs-backend/issues"
+  },
+  "homepage": "https://github.com/Cwalsh888/ccjs-backend#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
