@@ -25,7 +25,7 @@ let year = todaysDate.substring(6,10);
 const today = `${year}%2F${month}%2F${day}`;
 
 let dayLW = lastWeekDate.substring(0,2);
-let monthLW = lastWeekDate.substring(3, 5);
+let monthLW = lastWeekDate.substring(3,5);
 let yearLW = lastWeekDate.substring(6,10);
 
 const lastWeek = `${yearLW}%2F${monthLW}%2F${dayLW}`;
