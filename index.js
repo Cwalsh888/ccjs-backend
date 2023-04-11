@@ -4,14 +4,7 @@ const fetch = require('node-fetch');
 const app = express();
 const port = process.env.PORT || 3000;
 
-let newDate = new Date();
 let todaysDate = new Date().toLocaleDateString('en-gb', {
-  year: 'numeric',
-  month: '2-digit',
-  day: '2-digit',
-  timeZone: 'America/Chicago'
-});
-let lastWeekDate = new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate() - 7).toLocaleDateString('en-gb', {
   year: 'numeric',
   month: '2-digit',
   day: '2-digit',
@@ -23,6 +16,13 @@ let month = todaysDate.substring(3,5);
 let year = todaysDate.substring(6,10);
 
 let today = `${year}%2F${month}%2F${day}`;
+
+let lastWeekDate = new Date(Number(year), Number(month) - 1, Number(day)).toLocaleDateString('en-gb', {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+  timeZone: 'America/Chicago'
+});
 
 let dayLW = lastWeekDate.substring(0,2);
 let monthLW = lastWeekDate.substring(3,5);
@@ -43,11 +43,7 @@ app.get('/', cors(corsOptions), (req, res) => {
   res.send(`Hello World! Welcome to my server :)
   Today: ${today}
   Last week: ${lastWeek}
-  TodaysDate: ${todaysDate}
-  LastWeekDate: ${lastWeekDate}
-  The core problem: ${newDate}
-  UTC Date: ${newDate.getUTCDate() - 7}
-  Date Date: ${newDate.getDate() - 7}
+  Server time: ${new Date()}
   `);
 })
 
