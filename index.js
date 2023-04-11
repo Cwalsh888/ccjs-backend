@@ -40,7 +40,7 @@ const lastWeekRequest = `https://signup.com/api/events?accesskey=13fcbcd593bef76
 const allDataRequest = `https://signup.com/api/events?accesskey=13fcbcd593bef760aaa4feeea1f7d14424466e1a&activity_id=3424432&enddate=${today}&include_comments=false&include_jobassignments=true&include_jobs=true&my_jobs=false&selected_activity=3424432&startdate=2020%2F10%2F19`;
 
 app.get('/', cors(corsOptions), (req, res) => {
-  res.send('Hello World! Welcome to my server :)');
+  res.send(`Hello World! Today is ${today}! Welcome to my server :)`);
 })
 
 app.get('/getTodaysData', cors(corsOptions), async (req, res) => {
