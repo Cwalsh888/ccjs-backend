@@ -4,6 +4,7 @@ const fetch = require('node-fetch');
 const app = express();
 const port = process.env.PORT || 3000;
 
+let newDate = new Date();
 let todaysDate = new Date().toLocaleDateString('en-gb', {
   year: 'numeric',
   month: '2-digit',
@@ -17,7 +18,7 @@ let year = todaysDate.substring(6,10);
 
 let today = `${year}%2F${month}%2F${day}`;
 
-let lastWeekDate = new Date(Number(year), Number(month) - 1, Number(day)).toLocaleDateString('en-gb', {
+let lastWeekDate = new Date(Number(year), Number(month) - 1, Number(day) - 7).toLocaleDateString('en-gb', {
   year: 'numeric',
   month: '2-digit',
   day: '2-digit',
@@ -43,7 +44,7 @@ app.get('/', cors(corsOptions), (req, res) => {
   res.send(`Hello World! Welcome to my server :)
   Today: ${today}
   Last week: ${lastWeek}
-  Server time: ${new Date()}
+  Server time: ${newDate}
   `);
 })
 
