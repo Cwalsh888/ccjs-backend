@@ -1,35 +1,21 @@
 const express = require('express');
 const cors = require('cors');
+const dayjs = require('dayjs');
+const utc = require('dayjs/plugin/utc');
+const timezone = require('dayjs/plugin/timezone');
 const fetch = require('node-fetch');
 const app = express();
 const port = process.env.PORT || 3000;
+dayjs().format();
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.tz.setDefault("America/Chicago");
 
-let newDate = new Date();
-let todaysDate = new Date().toLocaleDateString('en-gb', {
-  year: 'numeric',
-  month: '2-digit',
-  day: '2-digit',
-  timeZone: 'America/Chicago'
-});
+const now = dayjs();
+const nowLW = dayjs().subtract(7, 'days');
 
-let day = todaysDate.substring(0,2);
-let month = todaysDate.substring(3,5);
-let year = todaysDate.substring(6,10);
-
-let today = `${year}%2F${month}%2F${day}`;
-
-let lastWeekDate = new Date(Number(year), Number(month) - 1, Number(day) - 7).toLocaleDateString('en-gb', {
-  year: 'numeric',
-  month: '2-digit',
-  day: '2-digit',
-  timeZone: 'America/Chicago'
-});
-
-let dayLW = lastWeekDate.substring(0,2);
-let monthLW = lastWeekDate.substring(3,5);
-let yearLW = lastWeekDate.substring(6,10);
-
-let lastWeek = `${yearLW}%2F${monthLW}%2F${dayLW}`;
+const today = `${now.year()}%2F${now.month()+1}%2F${now.date()}`;
+const lastWeek = `${nowLW.year()}%2F${nowLW.month()+1}%2F${nowLW.date()}`;
 
 app.use(cors());
 const corsOptions = {
@@ -44,7 +30,7 @@ app.get('/', cors(corsOptions), (req, res) => {
   res.send(`Hello World! Welcome to my server :)
   Today: ${today}
   Last week: ${lastWeek}
-  Server time: ${newDate}
+  Server time: ${now.format()}
   `);
 })
 
