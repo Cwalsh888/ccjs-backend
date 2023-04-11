@@ -4,14 +4,14 @@ const fetch = require('node-fetch');
 const app = express();
 const port = process.env.PORT || 3000;
 
-const newDate = new Date();
-const todaysDate = new Date().toLocaleDateString('en-gb', {
+let newDate = new Date();
+let todaysDate = new Date().toLocaleDateString('en-gb', {
   year: 'numeric',
   month: '2-digit',
   day: '2-digit',
   timeZone: 'America/Chicago'
 });
-const lastWeekDate = new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate() - 7).toLocaleDateString('en-gb', {
+let lastWeekDate = new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate() - 7).toLocaleDateString('en-gb', {
   year: 'numeric',
   month: '2-digit',
   day: '2-digit',
@@ -22,13 +22,13 @@ let day = todaysDate.substring(0,2);
 let month = todaysDate.substring(3,5);
 let year = todaysDate.substring(6,10);
 
-const today = `${year}%2F${month}%2F${day}`;
+let today = `${year}%2F${month}%2F${day}`;
 
 let dayLW = lastWeekDate.substring(0,2);
 let monthLW = lastWeekDate.substring(3,5);
 let yearLW = lastWeekDate.substring(6,10);
 
-const lastWeek = `${yearLW}%2F${monthLW}%2F${dayLW}`;
+let lastWeek = `${yearLW}%2F${monthLW}%2F${dayLW}`;
 
 app.use(cors());
 const corsOptions = {
@@ -40,7 +40,8 @@ const lastWeekRequest = `https://signup.com/api/events?accesskey=13fcbcd593bef76
 const allDataRequest = `https://signup.com/api/events?accesskey=13fcbcd593bef760aaa4feeea1f7d14424466e1a&activity_id=3424432&enddate=${today}&include_comments=false&include_jobassignments=true&include_jobs=true&my_jobs=false&selected_activity=3424432&startdate=2020%2F10%2F19`;
 
 app.get('/', cors(corsOptions), (req, res) => {
-  res.send(`Hello World! Today is ${today}! Welcome to my server :)`);
+  res.send(`Hello World! Today is ${today}! Welcome to my server :) \n
+  Last week was ${lastWeek}`);
 })
 
 app.get('/getTodaysData', cors(corsOptions), async (req, res) => {
