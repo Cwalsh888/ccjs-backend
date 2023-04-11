@@ -45,6 +45,7 @@ app.get('/', cors(corsOptions), (req, res) => {
   Last week: ${lastWeek}
   TodaysDate: ${todaysDate}
   LastWeekDate: ${lastWeekDate}
+  The core problem: ${newDate}
   `);
 })
 
