@@ -46,8 +46,8 @@ app.get('/', cors(corsOptions), (req, res) => {
   TodaysDate: ${todaysDate}
   LastWeekDate: ${lastWeekDate}
   The core problem: ${newDate}
-  UTC Date: ${newDate.getUTCDate()}
-  Date Date: ${newDate.getDate()}
+  UTC Date: ${newDate.getUTCDate() - 7}
+  Date Date: ${newDate.getDate() - 7}
   `);
 })
 
