@@ -6,18 +6,12 @@ const timezone = require('dayjs/plugin/timezone');
 const fetch = require('node-fetch');
 const app = express();
 const port = process.env.PORT || 3000;
-dayjs().format();
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.tz.setDefault("America/Chicago");
+dayjs().format();
 
-const now = dayjs();
-const start = dayjs().subtract(7, 'days');
-
-const endDate = `${now.year()}%2F${now.month()+1}%2F${now.date()}`;
-const startDate = `${start.year()}%2F${start.month()+1}%2F${start.date()}`;
-
-const dynamicRequest = (days) => {
+const dynamicRequest = (days, endDate) => {
   const start = dayjs().subtract(days, 'days');
   const startStr = `${start.year()}%2F${start.month()+1}%2F${start.date()}`;
 
@@ -25,15 +19,24 @@ const dynamicRequest = (days) => {
 };
 
 app.use(cors());
+
+app.use((req, res, next) => {
+  const now = dayjs();
+  res.locals.now = now;
+  res.locals.start = now.subtract(7, 'days');
+  res.locals.endDate = `${now.year()}%2F${now.month()+1}%2F${now.date()}`;
+
+  next();
+})
+
 const corsOptions = {
   origin: ["http://localhost:3000", "https://ccjs.onrender.com"]
 };
 
 app.get('/', cors(corsOptions), (req, res) => {
-  res.send(`Hello World! Welcome to my server :)
-  Today: ${endDate}
-  Last week: ${startDate}
-  Server time: ${now.format()}
+  res.send(`
+  <div>Hello World! Welcome to my server :)</div>
+  <div>Server time: ${req.res.locals.now.format()}</div>
   `);
 })
 
@@ -41,7 +44,7 @@ app.get('/getTodaysData', cors(corsOptions), async (req, res) => {
   const fetchOptions = {
       method: 'GET'
   }
-  const response = await fetch(dynamicRequest(0), fetchOptions);
+  const response = await fetch(dynamicRequest(0, req.res.locals.endDate), fetchOptions);
   const jsonResponse = await response.json();
   res.json(jsonResponse);
 })
@@ -50,7 +53,7 @@ app.get('/getHistoricalData', cors(corsOptions), async (req, res) => {
   const fetchOptions = {
       method: 'GET'
   }
-  const response = await fetch(dynamicRequest(req.query.days), fetchOptions);
+  const response = await fetch(dynamicRequest(req.query.days, req.res.locals.endDate), fetchOptions);
   const jsonResponse = await response.json();
   res.json(jsonResponse);
 })
