@@ -15,8 +15,8 @@ const dynamicRequest = (days, now, endDate) => {
 app.use(cors());
 
 app.use((req, res, next) => {
-  const now = dayjs();
-  res.locals.now = now.subtract(5, 'hours');
+  const now = dayjs().subtract(5, 'hours');
+  res.locals.now = now;
   res.locals.endDate = `${now.year()}%2F${now.month()+1}%2F${now.date()}`;
 
   next();
