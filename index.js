@@ -42,7 +42,7 @@ app.get('/getTodaysData', cors(corsOptions), async (req, res) => {
   }
   const response = await fetch(dynamicRequest(0, now, endDate), fetchOptions);
   const jsonResponse = await response.json();
-  res.json(jsonResponse);
+  res.json(jsonResponse.data[0].jobs);
 })
 
 app.get('/getHistoricalData', cors(corsOptions), async (req, res) => {
