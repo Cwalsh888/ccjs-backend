@@ -28,8 +28,8 @@ const corsOptions = {
 
 app.get('/', cors(corsOptions), (req, res) => {
   res.send(`
-  <div>Hello World! Welcome to my server :)</div>
-  <div>Server time in CST: ${req.res.locals.now.format()}</div>
+    <div>Hello World! Welcome to my server :)</div>
+    <div>Server time in CST: ${req.res.locals.now.format()}</div>
   `);
 })
 
@@ -55,7 +55,7 @@ app.get('/getHistoricalData', cors(corsOptions), async (req, res) => {
   }
   const response = await fetch(dynamicRequest(days, now, endDate), fetchOptions);
   const jsonResponse = await response.json();
-  res.json(jsonResponse);
+  res.json(jsonResponse.data);
 })
 
 app.listen(port, () => {
